@@ -1,5 +1,5 @@
 # @ianwalter/line
-> Simple, safe parent-child communication between iframes using postMessage
+> Simple, safe parent-child communication with iframes using postMessage
 
 Parent:
 

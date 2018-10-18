@@ -1,0 +1,25 @@
+{
+  "name": "@ianwalter/line",
+  "version": "0.0.0",
+  "description": "Simple, safe parent-child communication with iframes using postMessage",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run build && jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ianwalter/line.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ianwalter/line/issues"
+  },
+  "homepage": "https://github.com/ianwalter/line#readme",
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "microbundle": "^0.6.0",
+    "np": "^3.0.4"
+  }
+}
