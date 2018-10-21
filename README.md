@@ -1,28 +1,49 @@
 # @ianwalter/line
 > Simple, safe parent-child communication with iframes using postMessage
 
+## Installation
+
+```console
+npm install @ianwalter/line --save
+```
+
+## Usage
+
 Parent:
 
 ```js
-import { Line } from '@ianwalter/line'
+import Line from '@ianwalter/line'
 
-const line = new Line(window.someIframe, childUrl)
+// Create a line instance which establishes a communication line between the
+// current window and an iframe within the current window, someIframe.
+const line = new Line(someIframe)
 
-line.on('alert', alertMessage)
+// Subscribe to the alert topic and handle incoming messages with handleAlert.
+line.sub('alert', handleAlert)
 
-line.send('set', 'Yo!')
+// Send a message to the action topic with some data.
+line.msg('action', { date: new Date() })
 ```
 
 Child:
 
 ```js
-import { Parent } from '@ianwalter/line'
+import Line from '@ianwalter/line'
 
-if (Parent.exists()) {
-  const parent = new Parent()
+if (Line.hasParent()) {
+  // Create a line instance which establishes a communication line between the
+  // current window and, by default, window.parent.
+  const line = new Line()
 
-  parent.on('set', setMessage)
+  // Subscribe to the action topic and handle income messages with
+  // executeAction.
+  line.sub('action', executeAction)
 
-  parent.send('alert', message)
+  // Send a message to the alert topic with some data.
+  line.msg('alert', { date: new Date() })
 }
 ```
+
+&nbsp;
+
+ISC &copy; [Ian Walter](https://iankwalter.com)

@@ -1,45 +1,26 @@
 import Subpub from '@ianwalter/subpub'
 
-export class Line extends Subpub {
-  constructor (iframe, url) {
+export default class Line extends Subpub {
+  constructor (win = window.parent) {
     super()
-    this.iframe = iframe
-    this.url = url
+
+    this.msg = (topic, data) => {
+      win.postMessage(Object.assign({}, data, { topic }), '*')
+    }
 
     this.listener = evt => {
-      if (evt.origin === this.url) {
-        this.pub(evt.data.key, evt.data)
+      if (evt.source === win) {
+        this.pub(evt.data.topic, evt.data)
       } else {
-        console.error(`Message from ${evt.origin} doesn't match ${this.url}`)
+        console.error(`Ignored message from external source ${evt.origin}`)
       }
     }
 
     window.addEventListener('message', this.listener)
   }
 
-  msg (key, data) {
-    this.iframe.contentWindow.postMessage({ key, data }, this.url)
-  }
-
-  end () {
-    window.removeEventListener('message', this.listener)
-  }
-}
-
-export class Parent extends Subpub {
-  constructor (url = '*') {
-    super()
-    this.url = url
-    this.listener = evt => this.pub(evt.data.key, evt.data)
-    window.addEventListener('message', this.listener)
-  }
-
-  static exists () {
+  static hasParent () {
     return typeof window.parent !== 'undefined' && window.parent !== window
-  }
-
-  msg (key, data) {
-    window.parent.postMessage({ key, data }, this.url)
   }
 
   end () {

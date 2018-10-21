@@ -6,8 +6,8 @@
   "umd:main": "dist/line.umd.js",
   "module": "dist/line.m.js",
   "scripts": {
-    "build": "microbundle build index.js",
-    "watch": "microbundle watch index.js",
+    "build": "microbundle build index.js --compress false",
+    "watch": "microbundle watch index.js --compress false",
     "test": "npm run build && karmatic",
     "lint": "eslint --ext js index.js tests"
   },
@@ -15,7 +15,10 @@
     "type": "git",
     "url": "git+https://github.com/ianwalter/line.git"
   },
-  "keywords": [],
+  "keywords": [
+    "postMessage",
+    "iframe"
+  ],
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
   "license": "ISC",
   "bugs": {
@@ -26,6 +29,7 @@
     "@ianwalter/subpub": "^1.0.0"
   },
   "devDependencies": {
+    "common-tags": "^1.8.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",
