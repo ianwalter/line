@@ -20,7 +20,7 @@ export default class Line extends Subpub {
   }
 
   static hasParent () {
-    return typeof window.parent !== 'undefined' && window.parent !== window
+    return typeof window !== 'undefined' && window.parent !== window
   }
 
   end () {
