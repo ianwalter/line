@@ -1,6 +1,6 @@
 {
   "name": "@ianwalter/line",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple, safe parent-child communication with iframes using postMessage",
   "main": "dist/line.js",
   "umd:main": "dist/line.umd.js",
