@@ -5,12 +5,6 @@ describe('Line', () => {
   const data = { born: new Date() }
 
   describe('in the parent window', () => {
-    const createIframe = () => {
-      const iframe = document.createElement('iframe')
-      document.body.appendChild(iframe)
-      return iframe
-    }
-
     it('should post a message to the given window', () => {
       const msg = { ...data, topic }
       const contentWindow = { postMessage: () => {} }
@@ -22,6 +16,12 @@ describe('Line', () => {
     })
 
     describe('when receiving messages', () => {
+      const createIframe = () => {
+        const iframe = document.createElement('iframe')
+        document.body.appendChild(iframe)
+        return iframe
+      }
+
       it('should call subscribers of a message topic', done => {
         const iframe = createIframe()
         const line = new Line(iframe.contentWindow)
