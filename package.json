@@ -47,14 +47,9 @@
   },
   "eslintConfig": {
     "root": true,
-    "env": {
-      "jasmine": true
-    },
     "extends": [
+      "eslint:recommended",
       "standard"
-    ],
-    "plugins": [
-      "jasmine"
     ]
   }
 }
