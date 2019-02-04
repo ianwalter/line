@@ -3,13 +3,14 @@
   "version": "1.0.1",
   "description": "Simple, safe parent-child communication with iframes using postMessage",
   "main": "dist/line.js",
-  "umd:main": "dist/line.umd.js",
   "module": "dist/line.m.js",
+  "iife": "dist/line.iife.js",
   "scripts": {
-    "build": "microbundle build index.js --compress false",
-    "watch": "microbundle watch index.js --compress false",
-    "test": "npm run build && karmatic",
-    "lint": "eslint --ext js index.js tests"
+    "lint": "eslint index.js test.js",
+    "iife": "dist --name Line --babel --inline --no-esm --no-cjs",
+    "dist": "dist --babel --no-iife",
+    "pretest": "npm run dist && npm run iife",
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
     "iframe"
   ],
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
-  "license": "Apache 2.0 with Commons Clause",
+  "license": "SEE LICENSE IN LICENSE",
   "files": [
     "dist"
   ],
@@ -29,32 +30,38 @@
   },
   "homepage": "https://github.com/ianwalter/line#readme",
   "dependencies": {
-    "@ianwalter/subpub": "^1.0.0"
+    "@ianwalter/subpub": "^1.0.1"
   },
   "devDependencies": {
+    "@ianwalter/dist": "^1.5.1",
+    "@ianwalter/babel-preset-lib": "^1.0.3",
+    "@ianwalter/puppeteer-helper": "^2.0.0",
+    "ava": "^1.2.0",
     "common-tags": "^1.8.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-jasmine": "^2.10.1",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
-    "karmatic": "^1.2.0",
-    "microbundle": "^0.6.0",
-    "np": "^3.0.4",
-    "webpack": "^4.21.0"
+    "np": "^3.0.4"
+  },
+  "browserslist": [
+    "> 0.5%"
+  ],
+  "babel": {
+    "presets": [
+      "@ianwalter/lib"
+    ]
   },
   "eslintConfig": {
     "root": true,
-    "env": {
-      "jasmine": true
-    },
     "extends": [
+      "eslint:recommended",
       "standard"
     ],
-    "plugins": [
-      "jasmine"
-    ]
+    "globals": {
+      "Line": true
+    }
   }
 }

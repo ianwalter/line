@@ -11,8 +11,6 @@ export default class Line extends Subpub {
     this.listener = evt => {
       if (evt.source === win) {
         this.pub(evt.data.topic, evt.data)
-      } else {
-        console.error(`Ignored message from external source ${evt.origin}`)
       }
     }
 
