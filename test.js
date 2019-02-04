@@ -1,94 +1,114 @@
-import Line from '../'
+import test from 'ava'
+import puppeteerHelper from '@ianwalter/puppeteer-helper'
 
-describe('Line', () => {
-  const topic = 'dogs'
-  const data = { born: new Date() }
+const withPage = puppeteerHelper([
+  './node_modules/@ianwalter/subpub/dist/subpub.iife.js',
+  './dist/line.iife.js'
+])
 
-  describe('in the parent window', () => {
-    it('should post a message to the given window', () => {
-      const msg = { ...data, topic }
-      const contentWindow = { postMessage: () => {} }
-      spyOn(contentWindow, 'postMessage')
-      const line = new Line(contentWindow)
-      line.msg(topic, data)
-      expect(contentWindow.postMessage).toHaveBeenCalledWith(msg, '*')
-      line.end()
-    })
+async function createIframe (page, name = 'test') {
+  await page.evaluate(() => {
+    const iframe = document.createElement('iframe')
+    iframe.setAttribute('name', 'test')
+    document.body.appendChild(iframe)
+  })
+  const iframe = page.frames().find(frame => frame.name() === name)
+  await iframe.addScriptTag({ path: './dist/line.iife.js' })
+  return iframe
+}
 
-    describe('when receiving messages', () => {
-      const createIframe = () => {
-        const iframe = document.createElement('iframe')
-        document.body.appendChild(iframe)
-        return iframe
-      }
+test('main frame topic subscriber gets called', withPage, async (t, page) => {
+  // Create an iframe within the page.
+  const iframe = await createIframe(page)
 
-      it('should call subscribers of a message topic', done => {
-        const iframe = createIframe()
-        const line = new Line(iframe.contentWindow)
-        line.sub(topic, d => {
-          expect(d).toEqual({ topic, loyal: true })
-          document.body.removeChild(iframe)
-          line.end()
-          done()
-        })
-        iframe.contentWindow.eval(`
-          window.parent.postMessage({ topic: 'dogs', loyal: true }, '*')
-        `)
-      })
-
-      it('should not call subscribers if the origin is different', done => {
-        const iframe = createIframe()
-        const line = new Line(iframe)
-        line.sub(topic, () => done.fail('Subscriber was called'))
-        window.postMessage({ topic, loyal: true }, '*')
-        setTimeout(() => {
-          document.body.removeChild(iframe)
-          line.end()
-          done()
-        }, 500)
-      })
-    })
+  // Add the topic subscriber to the main frame.
+  await page.evaluate(() => {
+    const line = new Line(window.frames[0])
+    line.sub('dogs', data => (window.received = data))
   })
 
-  describe('in the iframe', () => {
-    it('should post a message to its parent', done => {
-      window.parent.addEventListener('message', evt => {
-        expect(evt.data).toEqual({ ...data, topic })
-        done()
-      })
-      const line = new Line()
-      line.msg(topic, data)
-      line.end()
-    })
-
-    describe('when receiving messages', () => {
-      it('should call subscribers of a message topic', done => {
-        const line = new Line()
-        line.sub(topic, d => {
-          expect(d).toEqual({ topic, loyal: true })
-          line.end()
-          done()
-        })
-        window.parent.eval(`
-          window.frames[0].postMessage({ topic: 'dogs', loyal: true }, '*')
-        `)
-      })
-
-      it('should not call subscribers if the source isnt the parent', done => {
-        const line = new Line()
-        line.sub(topic, () => done.fail('Subscriber was called'))
-        window.postMessage({ topic })
-        setTimeout(() => {
-          line.end()
-          done()
-        }, 500)
-      })
-    })
+  // Send a test message to the main frame from the iframe.
+  await iframe.evaluate(() => {
+    const line = new Line()
+    line.msg('dogs', { loyal: true })
+    line.end()
   })
 
-  describe('.hasParent()', () => {
-    it('should return true when called in the iframe', () => {
-      expect(Line.hasParent()).toBe(true)
-    })
+  // Assert that the test message was received.
+  t.deepEqual(
+    await page.evaluate(() => window.received),
+    { topic: 'dogs', loyal: true }
+  )
+})
+
+test(`main frame message doesn't match source`, withPage, async (t, page) => {
+  // Create an iframe within the page.
+  await createIframe(page)
+
+  const received = await page.evaluate(() => {
+    // Set up a line instance that subscribes to messages from the iframe.
+    const line = new Line(window.frames[0])
+    line.sub('dogs', data => (window.received = data))
+
+    // Post a test message from a source other than the iframe (the main frame
+    // itself).
+    window.postMessage({ topic: 'dogs', loyal: true }, '*')
+
+    // Return whatever data was received.
+    return window.received
   })
+
+  // Assert that the test message was not recieved.
+  t.is(received, undefined)
+})
+
+test('child frame topic subscriber gets called', withPage, async (t, page) => {
+  // Create an iframe within the page.
+  const iframe = await createIframe(page)
+
+  // Set up a Line instance and subscribe to the topic.
+  await iframe.evaluate(() => {
+    const line = new Line()
+    line.sub('dogs', data => (window.received = data))
+  })
+
+  // Set up a message event listener that will received the test message and
+  // save the event data to the window.
+  await page.evaluate(() => {
+    const line = new Line(window.frames[0])
+    line.msg('dogs', { loyal: true })
+    line.end()
+  })
+
+  // Assert that the messsage was received.
+  t.deepEqual(
+    await iframe.evaluate(() => window.received),
+    { topic: 'dogs', loyal: true }
+  )
+})
+
+test(`child frame message doesn't match source`, withPage, async (t, page) => {
+  // Create an iframe within the page.
+  const iframe = await createIframe(page)
+
+  // Set up a Line instance and subscribe to the topic.
+  const received = await iframe.evaluate(() => {
+    const line = new Line()
+    line.sub('dogs', data => (window.received = data))
+
+    // Post a test message from a source other than the main frame (the iframe
+    // itself).
+    window.postMessage({ topic: 'dogs', loyal: true }, '*')
+
+    // Return whatever data was received.
+    return window.received
+  })
+
+  // Assert that the test message was not recieved.
+  t.is(received, undefined)
+})
+
+test('hasParent detects when in the child frame', withPage, async (t, page) => {
+  const iframe = await createIframe(page)
+  t.true(await iframe.evaluate(() => Line.hasParent()))
 })
