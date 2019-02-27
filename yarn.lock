@@ -652,9 +652,9 @@
     arrify "^1.0.1"
 
 "@ianwalter/babel-preset-lib@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@ianwalter/babel-preset-lib/-/babel-preset-lib-1.0.3.tgz#5faf0452541d5798bf8081394a55f63d8d9df2a5"
-  integrity sha512-5WOCkJO4eXfwJkIu7yMOnGfCzWAOqhjwSjHBvBlJ45e06fmcNfrG1GZOyWH84EMJJfw7w3Kpo2ZtSCeEjG8omw==
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@ianwalter/babel-preset-lib/-/babel-preset-lib-1.0.4.tgz#ccab20878184b7e190c46ae386045c088c7e79af"
+  integrity sha512-NcDwFVTlFB4G7ES9uISpNZnSNMghHSrdTMzr1OTSiYUxsGmO4jx5X72+HK6/uBbyJB/kvysLvfOUdSZUvcHdMg==
   dependencies:
     "@babel/plugin-transform-runtime" "^7.2.0"
     "@babel/preset-env" "^7.3.1"
