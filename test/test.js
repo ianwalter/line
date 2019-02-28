@@ -1,18 +1,21 @@
 import test from 'ava'
 import puppeteerHelper from '@ianwalter/puppeteer-helper'
 
-const withPage = puppeteerHelper({ dumpio: true })
+const withPage = puppeteerHelper()
 
 async function createIframe (page, name = 'test') {
-  await page.evaluate(() => {
-    const iframe = document.createElement('iframe')
-    iframe.setAttribute('name', name)
-    document.body.appendChild(iframe)
-  })
+  await page.evaluate(
+    name => {
+      const iframe = document.createElement('iframe')
+      iframe.setAttribute('name', name)
+      document.body.appendChild(iframe)
+    },
+    name
+  )
   return page.frames().find(frame => frame.name() === name)
 }
 
-test.only('main frame topic subscriber gets called', withPage, async (t, page) => {
+test('main frame topic subscriber gets called', withPage, async (t, page) => {
   // Create an iframe within the page.
   const iframe = await createIframe(page)
 
@@ -96,7 +99,8 @@ test.only('main frame topic subscriber gets called', withPage, async (t, page) =
 //   t.is(received, undefined)
 // })
 
-// test('hasParent detects when in the child frame', withPage, async (t, page) => {
-//   const iframe = await createIframe(page)
-//   t.true(await iframe.evaluate(() => Line.hasParent()))
-// })
+test('hasParent detects when in the child frame', withPage, async (t, page) => {
+  const iframe = await createIframe(page)
+  t.log(iframe)
+  t.true(await t.evaluate('./test/helpers/hasParent.js', iframe))
+})
