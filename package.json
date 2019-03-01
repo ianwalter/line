@@ -3,13 +3,10 @@
   "version": "1.0.1",
   "description": "Simple, safe parent-child communication with iframes using postMessage",
   "main": "dist/line.js",
-  "module": "dist/line.m.js",
-  "iife": "dist/line.iife.js",
+  "browser": "dist/line.js",
   "scripts": {
-    "lint": "eslint index.js test.js",
-    "iife": "dist --name Line --babel --inline --no-esm --no-cjs",
-    "dist": "dist --babel --no-iife",
-    "pretest": "npm run dist && npm run iife",
+    "lint": "eslint index.js test",
+    "pretest": "dist --babel --no-cjs",
     "test": "ava"
   },
   "repository": {
@@ -30,14 +27,14 @@
   },
   "homepage": "https://github.com/ianwalter/line#readme",
   "dependencies": {
+    "@babel/runtime": "^7.3.4",
     "@ianwalter/subpub": "^1.0.1"
   },
   "devDependencies": {
-    "@ianwalter/dist": "^1.5.1",
-    "@ianwalter/babel-preset-lib": "^1.0.3",
-    "@ianwalter/puppeteer-helper": "^2.0.0",
-    "ava": "^1.2.0",
-    "common-tags": "^1.8.0",
+    "@ianwalter/babel-preset-lib": "^1.0.4",
+    "@ianwalter/dist": "^3.0.0",
+    "@ianwalter/puppeteer-helper": "^4.0.0",
+    "ava": "^1.2.1",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",
@@ -59,9 +56,6 @@
     "extends": [
       "eslint:recommended",
       "standard"
-    ],
-    "globals": {
-      "Line": true
-    }
+    ]
   }
 }
