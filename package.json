@@ -28,7 +28,7 @@
   "homepage": "https://github.com/ianwalter/line#readme",
   "dependencies": {
     "@babel/runtime": "^7.3.4",
-    "@ianwalter/subpub": "^1.0.1"
+    "@ianwalter/subpub": "^2.0.0"
   },
   "devDependencies": {
     "@ianwalter/babel-preset-lib": "^1.0.4",
