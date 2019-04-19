@@ -36,7 +36,7 @@
     "@ianwalter/eslint-config": "^1.0.0",
     "@ianwalter/puppeteer-helper": "^4.0.0",
     "ava": "^1.2.1",
-    "np": "^4.0.2"
+    "np": "^5.0.0"
   },
   "browserslist": [
     "> 0.5%"
