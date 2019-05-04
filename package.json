@@ -35,6 +35,7 @@
     "@ianwalter/dist": "^3.0.0",
     "@ianwalter/eslint-config": "^1.0.0",
     "@ianwalter/puppeteer-helper": "^4.0.0",
+    "@ianwalter/renovate-config": "^1.1.0",
     "ava": "^1.2.1",
     "np": "^5.0.0"
   },
@@ -49,7 +50,12 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@ianwalter/eslint-config"
+      "@ianwalter"
+    ]
+  },
+  "renovate": {
+    "extends": [
+      "@ianwalter"
     ]
   }
 }
