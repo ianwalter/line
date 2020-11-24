@@ -37,7 +37,7 @@ if (Line.hasParent()) {
   // current window and, by default, window.parent.
   const line = new Line()
 
-  // Subscribe to the action topic and handle income messages with
+  // Subscribe to the action topic and handle incoming messages with
   // executeAction.
   line.sub('action', executeAction)
 
