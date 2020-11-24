@@ -787,6 +787,13 @@
     "@babel/runtime" "^7.3.1"
     patrun "^1.0.0"
 
+"@ianwalter/subpub@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@ianwalter/subpub/-/subpub-3.0.0.tgz#2abc07c37abb02b7153419dc57e8d7a8fee4d528"
+  integrity sha512-X212BtDc2J985zM1lfn2JgpnbHPwloDK3FxjufGfzMDtcWHliTggoNuu60BNt7XHf4DBe+3knTvCs14bPuBaFw==
+  dependencies:
+    patrun "^3.0.0"
+
 "@ianwalter/update-package@^0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@ianwalter/update-package/-/update-package-0.0.2.tgz#b60e688203f7cec5993c7ca2df6cb267f331dbe1"
@@ -3098,6 +3105,11 @@ gex@0.3:
   dependencies:
     lodash "4.17"
 
+gex@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gex/-/gex-1.0.0.tgz#99acfe13de9987e8a0bebc8f72a5ef491c5ad231"
+  integrity sha512-wEyZcD4WWlL8IMw/ZOhWGfy4X/Q2yFqXZ16Loq/vh3XwsS+42Fm23Jd5ph+3yw9wNzVMmloskBwO3vCL8M7+2Q==
+
 glob-parent@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-3.1.0.tgz#9e6af6299d8d3bd2bd40430832bd113df906c5ae"
@@ -4964,6 +4976,13 @@ patrun@^1.0.0:
   dependencies:
     gex "0.3"
     lodash "4.17"
+
+patrun@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/patrun/-/patrun-3.0.0.tgz#b4f5900ecea71b50a20b8d4e4a5ad31602e0ac99"
+  integrity sha512-fQ++l3FCnrQbO03wEjb2SFn+ixGXscS8948A4js0qDTBsod0eElYUDvuWCH4mV61V/7QN2lCtryRvoyBP0K/7g==
+  dependencies:
+    gex "^1.0.0"
 
 pbkdf2@^3.0.3:
   version "3.0.17"

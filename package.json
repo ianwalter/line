@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/ianwalter/line#readme",
   "dependencies": {
-    "@ianwalter/subpub": "^2.0.0"
+    "@ianwalter/subpub": "^3.0.0"
   },
   "devDependencies": {
     "@ianwalter/dist": "^6.0.0",
