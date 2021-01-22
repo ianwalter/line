@@ -5,7 +5,7 @@ devDependencies:
   '@ianwalter/eslint-config': 1.1.3
   '@ianwalter/puppeteer-helper': 4.0.0
   '@ianwalter/release': 5.0.2
-  '@ianwalter/renovate-config': 1.4.2
+  '@ianwalter/renovate-config': 1.4.3
   ava: 1.4.1
 lockfileVersion: 5.2
 packages:
@@ -712,10 +712,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-KummxGkI57AiSRdU1frjRZSzoCKFB+RyI1XlKiVvPd38XRr6lk0IfO/VQNtu6a7H/aooAGhRfb4Sm3soOaIUBQ==
-  /@ianwalter/renovate-config/1.4.2:
+  /@ianwalter/renovate-config/1.4.3:
     dev: true
     resolution:
-      integrity: sha512-zsqqCE28FwCvBbXmDQgCwnGa5R1HEiNaMZD4QUwdVuycMT1xtv1TDAj4YiP878M4jgiU83iY1BdUXtjkpxu/Tw==
+      integrity: sha512-61InLaz89GLb3iTcRSL2Z+WtYnEIfzWJ7gy+R8ascdsRpARU8qwkBqmq6euw8OPxfHNbqtqEAiG1ljckFjVwsQ==
   /@ianwalter/rollup-plugin-hashbang/1.3.0:
     dependencies:
       magic-string: 0.25.7
@@ -2000,7 +2000,7 @@ packages:
     resolution:
       integrity: sha512-EZD2ckZysv8MMt4J6HSvS9K2GdtlZtdBncKAmF9lr2n0c9dJUaUN88PSTjvgwCgQPWKTkERXITgS6JJRAnljtg==
   /core-js/2.6.11:
-    deprecated: 'core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.'
+    deprecated: core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.
     dev: true
     requiresBuild: true
     resolution:
@@ -5683,7 +5683,7 @@ packages:
     resolution:
       integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
   /resolve-url/0.2.1:
-    deprecated: 'https://github.com/lydell/resolve-url#deprecated'
+    deprecated: https://github.com/lydell/resolve-url#deprecated
     dev: true
     resolution:
       integrity: sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
@@ -6688,7 +6688,7 @@ packages:
     resolution:
       integrity: sha512-B0yRTzYdUCCn9n+F4+Gh4yIDtMQcaJsmYBDsTSG8g/OejKBodLQ2IHfN3bM7jUsRXndopT7OIXWdYqc1fjmV6g==
   /urix/0.1.0:
-    deprecated: 'Please see https://github.com/lydell/urix#deprecated'
+    deprecated: Please see https://github.com/lydell/urix#deprecated
     dev: true
     resolution:
       integrity: sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
@@ -6956,6 +6956,6 @@ specifiers:
   '@ianwalter/eslint-config': ^1.1.3
   '@ianwalter/puppeteer-helper': ^4.0.0
   '@ianwalter/release': ^5.0.2
-  '@ianwalter/renovate-config': ^1.4.2
+  '@ianwalter/renovate-config': ^1.4.3
   '@ianwalter/subpub': ^2.0.0
   ava: ^1.4.1
