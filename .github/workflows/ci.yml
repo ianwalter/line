@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 jobs:
   build:
@@ -14,8 +14,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install
-        run: yarn
+        run: pnpm i
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
       - name: Test
-        run: yarn test
+        run: pnpm test
